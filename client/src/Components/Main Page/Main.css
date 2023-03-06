@@ -9,7 +9,7 @@
 .backdrop_image{
     width: 100%;
     height: 100%;
-    opacity: 0.5;
+    opacity: 0.6;
     position: absolute;
     top: 0;
     left: 0;
@@ -33,9 +33,89 @@
 
 .opacityLayerBackground{
     width: 100%;
-    height: 250px;
+    height: 180px;
     background: linear-gradient(180deg,rgba(4,21,45,0) 0%,#04152d 79.17%);
     position: absolute;
     bottom: 0;
     left: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 15px;
+    font-size: 12px;
+    -webkit-user-select: none;
+}
+
+.opacityLayerBackground > span{
+    display: block;
+    margin-top: 10px;
+    font-size: 10px;
+}
+
+
+/* text type main page hero section------------------------------- */
+
+.text_type01_hero_section{
+    color: white;
+    font-size: 62px;
+    font-weight: 700;
+}
+
+.text_type02_hero_section{
+    color: rgba(255, 255, 255, 0.896);
+    font-size: 22px;
+    margin: 10px 0;
+    letter-spacing: 2px;
+    width: 60%;
+    text-align: center;
+    line-height: 30px;
+}
+
+
+/* welcome section hero ---------------------------- */
+
+.welcome_hero_section{
+    position: absolute;
+    top: 40%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.searching_section{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 15px;
+}
+
+.searching_section > input{
+    width: 45%;
+    height: 55px;
+    border-radius: 10px 0 0 10px;
+    border: none;
+    font-size: 17px;
+    font-weight: 400;
+    letter-spacing: 1px;
+    padding: 0 25px;
+}
+
+.searching_section input:focus{
+    outline: none;
+
+}
+
+.searching_section > button{
+    width: 9%;
+    height: 55px;
+    border-radius: 0 10px 10px 0;
+    background-color: rgb(255, 85, 0);
+    border: none;
+    font-size: 17px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    cursor: pointer;
 }
