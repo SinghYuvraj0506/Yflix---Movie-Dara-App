@@ -119,3 +119,13 @@
     letter-spacing: 1px;
     cursor: pointer;
 }
+
+
+
+/* Carousels section ----------------------------------------------- */
+
+.main_page_carousel_section{
+    width: 95%;
+    margin: auto;
+    margin-top: 45px;
+}

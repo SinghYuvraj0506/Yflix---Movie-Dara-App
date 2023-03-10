@@ -7,6 +7,7 @@ import { bindActionCreators } from "redux";
 import {actionCreators} from "./state/index.js"
 import { useEffect } from "react";
 import { fetchDataFromApi } from "./Utils/api";
+import Details from "./Components/Details Page/Details";
 
 function App() {
   const dispatch = useDispatch()
@@ -34,6 +35,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Main />}/>
           <Route path="/search/:mediaType/:time" element={<Page />} />
+          <Route path="/find/:mediaType/:id" element={<Details />} />
       </Routes>
     </Router>
   );

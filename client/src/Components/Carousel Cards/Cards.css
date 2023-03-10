@@ -1,0 +1,50 @@
+.cards_main_container {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  min-width: 220px;
+  max-width: 220px;
+  overflow: hidden;
+  margin-right: 35px;
+  cursor: pointer;
+}
+
+.card_backdrop_poster {
+  width: 100%;
+  min-height: 329.85px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.card_text_details {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.card_title {
+  font-size: 16px;
+  line-height: 20px;
+  margin-bottom: 10px;
+}
+
+.card_date {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.707);
+}
+
+.card_circular_rating {
+  background-color: "white";
+  border-radius: 50%;
+  padding: 2px;
+  width: 55px;
+  position: relative;
+  top: -30px;
+  left: 4px;
+  margin-bottom: -22px;
+}
+
+
+
