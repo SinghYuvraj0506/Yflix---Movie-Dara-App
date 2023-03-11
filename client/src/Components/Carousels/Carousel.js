@@ -8,7 +8,7 @@ function Carousel(props) {
       <h1 className="carousel_text01">{props?.sectionName}</h1>
       <div className="carousel_scroll_wrapper">
         {props?.dataToMap?.map((e,i)=>{
-          return <Cards key={i} title={e?.title} release_date={e?.release_date} poster={e?.poster_path} rating={e?.vote_average} url={`find/${e?.media_type || "movie"}/${e?.id}`}/>
+          return <Cards key={i} title={e?.title} release_date={e?.release_date} poster={e?.poster_path} rating={e?.vote_average} url={`/find/${e?.media_type || "movie"}/${e?.id}`}/>
         })}
       </div>
     </div>

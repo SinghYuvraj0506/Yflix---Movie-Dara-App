@@ -1,11 +1,14 @@
 import React from "react";
 import "./Navbar.css";
+import {useNavigate} from "react-router-dom"
 
 function Navbar() {
+  const navigate = useNavigate()
+
   return (
     <div className="navbar_wrapper">
       <section className="left_navbar_wrapper">
-        <img src={require("../../Utils/images/logo.png")} alt="" />
+        <img src={require("../../Utils/images/logo.png")} alt="" onClick={()=>{navigate("/")}}/>
       </section>
 
       <section className="right_navbar_wrapper">
