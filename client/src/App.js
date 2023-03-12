@@ -34,7 +34,7 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<Main />}/>
-          <Route path="/search/:mediaType/:time" element={<Page />} />
+          <Route path="/search/:query" element={<Page />} />
           <Route path="/find/:mediaType/:id" element={<Details />} />
       </Routes>
     </Router>

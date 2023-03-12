@@ -19,10 +19,10 @@ function Cards(props) {
   return (
     <div className="cards_main_container" onClick={()=>{navigate(props?.url)}}>
       <Img
-        src={tmdbConfig?.poster + props?.poster}
+        src={ props?.poster ? (tmdbConfig?.poster + props?.poster) : "https://www.fcmlindia.com/images/fifty-days-campaign/no-image.jpg"}
         className="card_backdrop_poster"
       />
-      {props?.rating !== 0 && (
+      {props?.rating !== 0 && props?.mediaType !== "person" && (
         <div className="card_circular_rating">
           <CircularProgressbar
             value={parseFloat(props?.rating).toFixed(1)}
@@ -45,8 +45,8 @@ function Cards(props) {
         </div>
       )}
       <section className="card_text_details">
-        <span className="card_title">{props?.title.length > 23 ? props?.title.slice(0,23) + "..." : props?.title}</span>
-        <span className="card_date">{releaseDate(props?.release_date)}</span>
+        <span className="card_title">{props?.title?.length > 23 ? props?.title?.slice(0,23) + "..." : props?.title}</span>
+        {props?.mediaType === "person" ? <span>{props?.knownFor}</span> :<span className="card_date">{releaseDate(props?.release_date)}</span>}
       </section>
     </div>
   );

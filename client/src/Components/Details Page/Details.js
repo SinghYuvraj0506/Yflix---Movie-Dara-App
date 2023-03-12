@@ -57,7 +57,7 @@ function Details() {
         <section className="details_info_wrapper">
           <div className="left_info_wrapper_details">
             <h1 className="text_type01_details_page">
-              {MovieDetails?.data?.original_title}
+              {MovieDetails?.data?.original_title || MovieDetails?.data?.original_name}
             </h1>
             {MovieDetails?.data?.tagline && (
               <h2 className="text_type02_details_page">
@@ -70,7 +70,7 @@ function Details() {
                 {MovieDetails?.data?.vote_average.toFixed(1)} |{" "}
                 {MovieDetails?.data?.popularity.toFixed(0)}
               </span>
-              <span> {minToHour(MovieDetails?.data?.runtime)}</span>
+              <span> {mediaType === "movie" ? minToHour(MovieDetails?.data?.runtime) : MovieDetails?.data?.number_of_episodes+ " episodes | " + MovieDetails?.data?.number_of_seasons + " seasons"}</span>
               <span>
                 {" "}
                 {MovieDetails?.data?.genres?.map((e, i) => {
@@ -84,7 +84,7 @@ function Details() {
                   );
                 })}
               </span>
-              <span>{releaseDate(MovieDetails?.data?.release_date)}</span>
+              <span>{releaseDate(MovieDetails?.data?.release_date || MovieDetails?.data?.first_air_date)}</span>
             </section>
             <section className="overview_details">
               {MovieDetails?.data?.overview}
@@ -136,7 +136,7 @@ function Details() {
               return (
                 <div className="cast_block_details_page">
                   <Img
-                    src={tmdbConfig?.profile + e?.profile_path}
+                    src={e?.profile_path ? (tmdbConfig?.profile + e?.profile_path) : "https://www.fcmlindia.com/images/fifty-days-campaign/no-image.jpg"}
                     className="cast_image_display"
                   ></Img>
                   <span className="text_type05_details_page">{e?.name}</span>
@@ -161,7 +161,7 @@ function Details() {
         </section>
 
 
-        <Carousel sectionName="Similar Movies" dataToMap={Similar?.data?.results}/>
+        <Carousel sectionName={`Similar TV Shows / Movies`} dataToMap={Similar?.data?.results}/>
 
 
 

@@ -5,8 +5,10 @@ import { useSelector } from "react-redux";
 import Img from "../../Utils/Lazy load images/Img";
 import Navbar from "../Navbar/Navbar";
 import Carousel from "../Carousels/Carousel";
+import { useNavigate } from "react-router-dom";
 
 function Main() {
+  const navigate = useNavigate()
   const tmdbConfig = useSelector((state) => state.tmdbConfig); // getting tmdb config from the redux
   const [selectedMovie, setSelectedMovie] = useState(""); // background image url
   const [releaseDate, setReleaseDate] = useState("")
@@ -24,6 +26,17 @@ function Main() {
     let a = new Date(bg?.release_date)
     setReleaseDate(a?.toGMTString().slice(0,16))
   }, [Upcoming?.data]);
+
+
+  const handleKeyDown = (e) =>{
+    if(e?.key === "Enter"){
+      handleSearch()
+    }
+  }
+
+  const handleSearch = () =>{
+    navigate(`/search/${queryInput}`)
+  }
 
 
   return (
@@ -45,8 +58,8 @@ function Main() {
         Discover the magic of cinema - Explore, Learn, and Immerse with our extensive movie Upcoming?.database.
         </span>
         <section className="searching_section">
-        <input type="text" placeholder="Search for a movie or a tv show"/>
-        <button>Search</button>
+        <input type="text" placeholder="Search for a movie or a tv show" onChange={(e)=>{setQueryInput(e.target.value)}} onKeyDown={handleKeyDown}/>
+        <button onClick={handleSearch}>Search</button>
         </section>
       </div>
     </div>
