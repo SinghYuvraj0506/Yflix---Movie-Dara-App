@@ -7,3 +7,13 @@ export const setTMDBConfiguration = (data) =>{          // it is the action to s
     }
 
 }
+
+export const setVideoConfig = (data) =>{          // set the video config and the opening state ...............
+    return (dispatch) =>{
+        dispatch({
+            type:"setVideoConfig",
+            payload:data
+        })
+    }
+
+}

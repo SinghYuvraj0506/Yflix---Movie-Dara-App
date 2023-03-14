@@ -225,6 +225,31 @@
 .videos_details_block{
     margin-right: 25px;
     cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.videos_details_block > div{
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.videos_details_block > div svg{
+    position: absolute;
+    font-size: 45px;
+}
+
+
+.videos_details_block > span{
+    font-size: 15px;
+    margin-top: 5px;
+    color: #ffffff96;
+    text-align: center;
+    max-width: 190px;
+    display: inline-block;
 }
 
 .Video_thumbnail_details_page{

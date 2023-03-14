@@ -5,6 +5,25 @@ import {useNavigate} from "react-router-dom"
 function Navbar() {
   const navigate = useNavigate()
 
+  const handleScroll = () => {
+    if(document.querySelector(".navbar_wrapper")){
+
+      if (window.scrollY > 25) {
+        document.querySelector(".navbar_wrapper").style.backgroundColor =
+        "#020c1b";
+        document.querySelector(".navbar_wrapper").style.boxShadow =
+        "rgb(1 4 9 / 77%) 0px 0px 11px 8px";
+      } else {
+        document.querySelector(".navbar_wrapper").style.backgroundColor =
+        "transparent";
+        document.querySelector(".navbar_wrapper").style.boxShadow =
+        "unset"
+      }
+    }
+  };
+
+  document.addEventListener("scroll", handleScroll);
+
   return (
     <div className="navbar_wrapper">
       <section className="left_navbar_wrapper">

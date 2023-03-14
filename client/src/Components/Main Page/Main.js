@@ -6,10 +6,13 @@ import Img from "../../Utils/Lazy load images/Img";
 import Navbar from "../Navbar/Navbar";
 import Carousel from "../Carousels/Carousel";
 import { useNavigate } from "react-router-dom";
+import VideoPlayer from "../Video Popup/VideoPlayer";
+import Footer from "../Footer/Footer";
 
 function Main() {
   const navigate = useNavigate()
-  const tmdbConfig = useSelector((state) => state.tmdbConfig); // getting tmdb config from the redux
+  const tmdbConfig = new useSelector((state) => state.tmdbConfig); // getting tmdb config from the redux
+ 
   const [selectedMovie, setSelectedMovie] = useState(""); // background image url
   const [releaseDate, setReleaseDate] = useState("")
   const [queryInput, setQueryInput] = useState("");
@@ -38,6 +41,7 @@ function Main() {
     navigate(`/search/${queryInput}`)
   }
 
+  console.log(selectedMovie)
 
   return (
     <>
@@ -49,7 +53,7 @@ function Main() {
       </div>
 
       {!Upcoming?.loading && <div className="opacityLayerBackground">
-     {selectedMovie?.original_title} <span>{releaseDate}</span>
+     {selectedMovie?.original_title} <span onClick={()=>{navigate(`/find/movie/${selectedMovie?.id}`)}}>{releaseDate}</span>
       </div>}
 
       <div className="welcome_hero_section">
@@ -69,6 +73,8 @@ function Main() {
         <Carousel sectionName = "What's Popular" dataToMap={Popular?.data?.results}/>
         <Carousel sectionName = "Top Rated" dataToMap={Top_Rated?.data?.results}/>
     </div>
+
+    <Footer/>
     </>
   );
 }

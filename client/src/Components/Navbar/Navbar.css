@@ -16,8 +16,9 @@
 
 
 .left_navbar_wrapper > img{
-    width: 140px;
+    width: 120px;
     margin-top: 10px;
+    cursor: pointer;
 }
 
 

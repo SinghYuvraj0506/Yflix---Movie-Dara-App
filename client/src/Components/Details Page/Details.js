@@ -1,18 +1,25 @@
 import React, { useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useParams } from "react-router-dom";
 import useFetch from "../../hooks/useFetch";
 import Img from "../../Utils/Lazy load images/Img";
 import Navbar from "../Navbar/Navbar";
 import "./Details.css";
-import { AiFillStar } from "react-icons/ai";
+import { AiFillStar, AiOutlinePlayCircle } from "react-icons/ai";
 import { BsFillPlayFill } from "react-icons/bs";
 import Carousel from "../Carousels/Carousel";
+import { bindActionCreators } from "redux";
+import { actionCreators } from "../../state/index";
+import VideoPlayer from "../Video Popup/VideoPlayer";
+import Footer from "../Footer/Footer";
 
 function Details() {
   const { mediaType, id } = useParams();
-  const location = useLocation()
+  const location = useLocation();
+  const dispatch = new useDispatch();
+  const { setVideoConfig } = bindActionCreators(actionCreators, dispatch);
   const tmdbConfig = useSelector((state) => state.tmdbConfig); // getting tmdb config from the redux
+  const videoPopupConfig = useSelector((state) => state.videoPopupConfig); // getting video config from the redux
 
   const MovieDetails = useFetch(`/${mediaType}/${id}`);
   const Credits = useFetch(`/${mediaType}/${id}/credits`);
@@ -36,16 +43,15 @@ function Details() {
     return b[0] + " " + b[1] + " , " + b[2];
   };
 
-
   useEffect(() => {
-    window.scrollTo(0,0)
-
-  }, [location])
-  
+    window.scrollTo(0, 0);
+  }, [location]);
 
   return (
     <>
       <Navbar />
+
+      {videoPopupConfig?.openModal && <VideoPlayer />}
 
       <div className="details_main_wrapper">
         {/* background image and opacity layer --------------------------------------------- */}
@@ -57,7 +63,8 @@ function Details() {
         <section className="details_info_wrapper">
           <div className="left_info_wrapper_details">
             <h1 className="text_type01_details_page">
-              {MovieDetails?.data?.original_title || MovieDetails?.data?.original_name}
+              {MovieDetails?.data?.original_title ||
+                MovieDetails?.data?.original_name}
             </h1>
             {MovieDetails?.data?.tagline && (
               <h2 className="text_type02_details_page">
@@ -70,7 +77,15 @@ function Details() {
                 {MovieDetails?.data?.vote_average.toFixed(1)} |{" "}
                 {MovieDetails?.data?.popularity.toFixed(0)}
               </span>
-              <span> {mediaType === "movie" ? minToHour(MovieDetails?.data?.runtime) : MovieDetails?.data?.number_of_episodes+ " episodes | " + MovieDetails?.data?.number_of_seasons + " seasons"}</span>
+              <span>
+                {" "}
+                {mediaType === "movie"
+                  ? minToHour(MovieDetails?.data?.runtime)
+                  : MovieDetails?.data?.number_of_episodes +
+                    " episodes | " +
+                    MovieDetails?.data?.number_of_seasons +
+                    " seasons"}
+              </span>
               <span>
                 {" "}
                 {MovieDetails?.data?.genres?.map((e, i) => {
@@ -84,7 +99,12 @@ function Details() {
                   );
                 })}
               </span>
-              <span>{releaseDate(MovieDetails?.data?.release_date || MovieDetails?.data?.first_air_date)}</span>
+              <span>
+                {releaseDate(
+                  MovieDetails?.data?.release_date ||
+                    MovieDetails?.data?.first_air_date
+                )}
+              </span>
             </section>
             <section className="overview_details">
               {MovieDetails?.data?.overview}
@@ -94,7 +114,18 @@ function Details() {
                 <BsFillPlayFill size={22} />
                 &nbsp; Play Now
               </button>
-              <button>Watch Trailer</button>
+              <button
+                onClick={() => {
+                  setVideoConfig({
+                    openModal: true,
+                    videoKey: Videos?.data?.results?.filter((e) => {
+                      return e?.type === "Trailer";
+                    })[0].key,
+                  });
+                }}
+              >
+                Watch Trailer
+              </button>
             </section>
           </div>
 
@@ -127,46 +158,75 @@ function Details() {
       </div>
 
       <div className="extra_details_wrapper">
-
         {/* Cast section ------------------------------------------------------------------------- */}
-        <section>
+        {Credits?.data?.cast?.length !== 0 &&<section>
           <h2 className="text_type04_details_page">Top Cast</h2>
           <section className="cast_details_wrapper">
-            {Credits?.data?.cast?.filter((e1)=>{return e1?.profile_path})?.map((e, i) => {
+            {Credits?.data?.cast
+              ?.filter((e1) => {
+                return e1?.profile_path;
+              })
+              ?.map((e, i) => {
+                return (
+                  <div className="cast_block_details_page">
+                    <Img
+                      src={
+                        e?.profile_path
+                          ? tmdbConfig?.profile + e?.profile_path
+                          : "https://www.fcmlindia.com/images/fifty-days-campaign/no-image.jpg"
+                      }
+                      className="cast_image_display"
+                    ></Img>
+                    <span className="text_type05_details_page">{e?.name}</span>
+                    <span className="text_type06_details_page">
+                      {e?.character}
+                    </span>
+                  </div>
+                );
+              })}
+          </section>
+        </section>}
+
+        {/* Official Video section ------------------------------------------- */}
+        {Videos?.data?.results?.length !== 0 && <section>
+          <h2 className="text_type04_details_page">Official Videos</h2>
+          <section className="cast_details_wrapper">
+            {Videos?.data?.results?.map((e, i) => {
               return (
-                <div className="cast_block_details_page">
-                  <Img
-                    src={e?.profile_path ? (tmdbConfig?.profile + e?.profile_path) : "https://www.fcmlindia.com/images/fifty-days-campaign/no-image.jpg"}
-                    className="cast_image_display"
-                  ></Img>
-                  <span className="text_type05_details_page">{e?.name}</span>
-                  <span className="text_type06_details_page">{e?.character}</span>
+                <div
+                  key={i}
+                  className="videos_details_block"
+                  onClick={() => {
+                    setVideoConfig({ openModal: true, videoKey: e?.key });
+                  }}
+                >
+                  <div>
+                    <Img
+                      src={`https://img.youtube.com/vi/${e?.key}/mqdefault.jpg`}
+                      className="Video_thumbnail_details_page"
+                    />
+                    <AiOutlinePlayCircle />
+                  </div>
+                  <span>{e?.name}</span>
                 </div>
               );
             })}
           </section>
         </section>
+}
+        {Similar?.data?.results?.length !== 0 && <Carousel
+          sectionName={`Similar TV Shows / Movies`}
+          dataToMap={Similar?.data?.results}
+        />}
 
-
-            {/* Official Video section ------------------------------------------- */}
-        <section>
-        <h2 className="text_type04_details_page">Official Videos</h2>
-        <section className="cast_details_wrapper">
-          {Videos?.data?.results?.map((e,i)=>{
-            return <div key={i} className="videos_details_block"> 
-              <Img src={`https://img.youtube.com/vi/${e?.key}/mqdefault.jpg`} className="Video_thumbnail_details_page"/>
-              </div>
-          })}
-        </section>
-        </section>
-
-
-        <Carousel sectionName={`Similar TV Shows / Movies`} dataToMap={Similar?.data?.results}/>
-
-
-
-        <Carousel sectionName="Recommendations" dataToMap={Recommendations?.data?.results}/>
+        {Recommendations?.data?.results?.length !== 0 && <Carousel
+          sectionName="Recommendations"
+          dataToMap={Recommendations?.data?.results}
+        />}
       </div>
+
+
+      <Footer/>
     </>
   );
 }

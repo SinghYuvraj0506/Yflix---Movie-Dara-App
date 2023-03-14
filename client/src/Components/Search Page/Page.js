@@ -2,6 +2,7 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import useFetch from "../../hooks/useFetch";
 import Cards from "../Carousel Cards/Cards";
+import Footer from "../Footer/Footer";
 import Navbar from "../Navbar/Navbar";
 import "./Page.css";
 
@@ -63,6 +64,8 @@ function Page() {
             })}
         </section>
       </div>
+
+      <Footer/>
     </>
   );
 }
