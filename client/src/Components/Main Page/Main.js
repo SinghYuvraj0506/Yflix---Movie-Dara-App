@@ -41,7 +41,6 @@ function Main() {
     navigate(`/search/${queryInput}`)
   }
 
-  console.log(selectedMovie)
 
   return (
     <>

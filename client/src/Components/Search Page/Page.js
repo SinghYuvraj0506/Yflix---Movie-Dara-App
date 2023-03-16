@@ -1,5 +1,6 @@
 import React from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import Cookies from "universal-cookie";
 import useFetch from "../../hooks/useFetch";
 import Cards from "../Carousel Cards/Cards";
 import Footer from "../Footer/Footer";
@@ -7,9 +8,16 @@ import Navbar from "../Navbar/Navbar";
 import "./Page.css";
 
 function Page() {
+  const cookies = new Cookies();
+  const navigate = useNavigate()
   const { query } = useParams();
   
   const { data, loading } = useFetch(`/search/multi?query=${decodeURIComponent(query)}`);
+
+  if(!cookies.get("auth-token")){
+    navigate("/login")
+    return null
+  }
 
   return (
     <>

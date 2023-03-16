@@ -8,8 +8,13 @@ import {actionCreators} from "./state/index.js"
 import { useEffect } from "react";
 import { fetchDataFromApi } from "./Utils/api";
 import Details from "./Components/Details Page/Details";
+import Login from "./Components/Login/Login";
+import Signup from "./Components/Signup/Signup";
+import 'react-toastify/dist/ReactToastify.css';
+
 
 function App() {
+  
   const dispatch = useDispatch()
   const {setTMDBConfiguration} = bindActionCreators(actionCreators,dispatch)
 
@@ -36,6 +41,8 @@ function App() {
         <Route path="/" element={<Main />}/>
           <Route path="/search/:query" element={<Page />} />
           <Route path="/find/:mediaType/:id" element={<Details />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
       </Routes>
     </Router>
   );

@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import useFetch from "../../hooks/useFetch";
 import Img from "../../Utils/Lazy load images/Img";
 import Navbar from "../Navbar/Navbar";
@@ -12,8 +12,11 @@ import { bindActionCreators } from "redux";
 import { actionCreators } from "../../state/index";
 import VideoPlayer from "../Video Popup/VideoPlayer";
 import Footer from "../Footer/Footer";
+import Cookies from "universal-cookie";
 
 function Details() {
+  const cookies = new Cookies();
+  const navigate = useNavigate()
   const { mediaType, id } = useParams();
   const location = useLocation();
   const dispatch = new useDispatch();
@@ -46,6 +49,13 @@ function Details() {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [location]);
+
+
+
+  if(!cookies.get("auth-token")){
+    navigate("/login")
+    return null
+  }
 
   return (
     <>
@@ -159,74 +169,82 @@ function Details() {
 
       <div className="extra_details_wrapper">
         {/* Cast section ------------------------------------------------------------------------- */}
-        {Credits?.data?.cast?.length !== 0 &&<section>
-          <h2 className="text_type04_details_page">Top Cast</h2>
-          <section className="cast_details_wrapper">
-            {Credits?.data?.cast
-              ?.filter((e1) => {
-                return e1?.profile_path;
-              })
-              ?.map((e, i) => {
+        {Credits?.data?.cast?.length !== 0 && (
+          <section>
+            <h2 className="text_type04_details_page">Top Cast</h2>
+            <section className="cast_details_wrapper">
+              {Credits?.data?.cast
+                ?.filter((e1) => {
+                  return e1?.profile_path;
+                })
+                ?.map((e, i) => {
+                  return (
+                    <div className="cast_block_details_page">
+                      <Img
+                        src={
+                          e?.profile_path
+                            ? tmdbConfig?.profile + e?.profile_path
+                            : "https://www.fcmlindia.com/images/fifty-days-campaign/no-image.jpg"
+                        }
+                        className="cast_image_display"
+                      ></Img>
+                      <span className="text_type05_details_page">
+                        {e?.name}
+                      </span>
+                      <span className="text_type06_details_page">
+                        {e?.character}
+                      </span>
+                    </div>
+                  );
+                })}
+            </section>
+          </section>
+        )}
+
+        {/* Official Video section ------------------------------------------- */}
+        {Videos?.data?.results?.length !== 0 && (
+          <section>
+            <h2 className="text_type04_details_page">Official Videos</h2>
+            <section className="cast_details_wrapper">
+              {Videos?.data?.results?.map((e, i) => {
                 return (
-                  <div className="cast_block_details_page">
-                    <Img
-                      src={
-                        e?.profile_path
-                          ? tmdbConfig?.profile + e?.profile_path
-                          : "https://www.fcmlindia.com/images/fifty-days-campaign/no-image.jpg"
-                      }
-                      className="cast_image_display"
-                    ></Img>
-                    <span className="text_type05_details_page">{e?.name}</span>
-                    <span className="text_type06_details_page">
-                      {e?.character}
-                    </span>
+                  <div
+                    key={i}
+                    className="videos_details_block"
+                    onClick={() => {
+                      setVideoConfig({ openModal: true, videoKey: e?.key });
+                    }}
+                  >
+                    <div>
+                      <Img
+                        src={`https://img.youtube.com/vi/${e?.key}/mqdefault.jpg`}
+                        className="Video_thumbnail_details_page"
+                      />
+                      <AiOutlinePlayCircle />
+                    </div>
+                    <span>{e?.name}</span>
                   </div>
                 );
               })}
+            </section>
           </section>
-        </section>}
+        )}
+        {Similar?.data?.results?.length !== 0 && (
+          <Carousel
+            sectionName={`Similar TV Shows / Movies`}
+            dataToMap={Similar?.data?.results}
+          />
+        )}
 
-        {/* Official Video section ------------------------------------------- */}
-        {Videos?.data?.results?.length !== 0 && <section>
-          <h2 className="text_type04_details_page">Official Videos</h2>
-          <section className="cast_details_wrapper">
-            {Videos?.data?.results?.map((e, i) => {
-              return (
-                <div
-                  key={i}
-                  className="videos_details_block"
-                  onClick={() => {
-                    setVideoConfig({ openModal: true, videoKey: e?.key });
-                  }}
-                >
-                  <div>
-                    <Img
-                      src={`https://img.youtube.com/vi/${e?.key}/mqdefault.jpg`}
-                      className="Video_thumbnail_details_page"
-                    />
-                    <AiOutlinePlayCircle />
-                  </div>
-                  <span>{e?.name}</span>
-                </div>
-              );
-            })}
-          </section>
-        </section>
-}
-        {Similar?.data?.results?.length !== 0 && <Carousel
-          sectionName={`Similar TV Shows / Movies`}
-          dataToMap={Similar?.data?.results}
-        />}
-
-        {Recommendations?.data?.results?.length !== 0 && <Carousel
-          sectionName="Recommendations"
-          dataToMap={Recommendations?.data?.results}
-        />}
+        {Recommendations?.data?.results?.length !== 0 && (
+          <Carousel
+            sectionName="Recommendations"
+            dataToMap={Recommendations?.data?.results}
+          />
+        )}
       </div>
 
-
-      <Footer/>
+      <Footer />
     </>
   );
 }
