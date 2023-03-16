@@ -1,0 +1,105 @@
+
+.login_container_wrapper{
+    width: 100vw;
+    height: 100vh;
+    background: linear-gradient(66deg,#1a50ab,#f40d45);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.login_form{
+    background-color: white;
+    border-radius: 10px;
+    width: 30%;
+    color: black;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: column;
+    padding: 15px 0;
+    padding-bottom: 40px;
+}
+
+.login_form > h1{
+    font-size: 35px;
+    margin: 20px 0;
+    margin-bottom: 45px;
+}
+
+
+.input_section{
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    width: 85%;
+    margin: auto;
+}
+
+.input_section > div{
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    margin-bottom: 30px;
+    width: 100%;
+}
+
+.input_section label{
+    font-size: 18px;
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+.input_section input{
+    width: 100%;
+    height: 45px;
+    font-size: 17px;
+    border: none;
+    padding-left: 2px;
+    border-bottom: 2px solid #eee;
+    color: grey;
+}
+
+
+.input_section input:focus{
+    outline: none;
+}
+
+
+.login_form button{
+    width: 85%;
+    background: linear-gradient(45deg,#0be3e3,#d809c0);
+    border: none;
+    height: 45px;
+    border-radius: 18px;
+    font-size: 16px;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: white;
+    letter-spacing: 2px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.login_form button > svg{
+    margin-right: 10px;
+}
+
+.other_login_setups{
+    margin: 25px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+}
+
+.other_login_setups > span{
+    color: rgba(42, 40, 40, 0.7);
+    font-size: 18px;
+    font-weight: 800;
+    margin-bottom: 25px;
+}
