@@ -3,11 +3,14 @@
 import { combineReducers } from "redux";
 import TMDBConfigReducer from "./TMDBConfigReducer.js"
 import VideoReducer from "./VideoReducer.js"
+import LoaderReducer from "./LoaderReducer.js"
 
 
 const reducers = combineReducers({
     tmdbConfig : TMDBConfigReducer,          // config state of tmdb
-    videoPopupConfig : VideoReducer
+    videoPopupConfig : VideoReducer,
+    loaderConfig: LoaderReducer
+
 })
 
 

@@ -17,3 +17,13 @@ export const setVideoConfig = (data) =>{          // set the video config and th
     }
 
 }
+
+export const setLoaderOpening = (bool) =>{          // set the loader and the opening state ...............
+    return (dispatch) =>{
+        dispatch({
+            type:"setLoader",
+            payload:bool
+        })
+    }
+
+}

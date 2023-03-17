@@ -1,16 +1,20 @@
 import React, { useEffect, useState } from "react";
 import "./Main.css";
 import useFetch from "../../hooks/useFetch";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Img from "../../Utils/Lazy load images/Img";
 import Navbar from "../Navbar/Navbar";
 import Carousel from "../Carousels/Carousel";
 import { useNavigate } from "react-router-dom";
 import VideoPlayer from "../Video Popup/VideoPlayer";
 import Footer from "../Footer/Footer";
+import { bindActionCreators } from "redux";
+import { actionCreators } from "../../state/index";
 
 function Main() {
   const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const {setLoaderOpening} = bindActionCreators(actionCreators,dispatch)
   const tmdbConfig = new useSelector((state) => state.tmdbConfig); // getting tmdb config from the redux
  
   const [selectedMovie, setSelectedMovie] = useState(""); // background image url
@@ -29,6 +33,11 @@ function Main() {
     let a = new Date(bg?.release_date)
     setReleaseDate(a?.toGMTString().slice(0,16))
   }, [Upcoming?.data]);
+
+  // hanldes the loadingh bar
+  useEffect(()=>{
+    setLoaderOpening({openModal : Upcoming?.loading ?? Trending?.loading ?? Popular?.loading ?? Top_Rated?.loading})
+  },[Upcoming?.loading,Trending?.loading,Popular?.loading,Top_Rated?.loading])
 
 
   const handleKeyDown = (e) =>{
@@ -68,9 +77,9 @@ function Main() {
     </div>
 
     <div className="main_page_carousel_section">
-        <Carousel sectionName = "Trending" dataToMap={Trending?.data?.results}/>
-        <Carousel sectionName = "What's Popular" dataToMap={Popular?.data?.results}/>
-        <Carousel sectionName = "Top Rated" dataToMap={Top_Rated?.data?.results}/>
+        <Carousel sectionName = "Trending" dataToMap={Trending?.data?.results.filter(e=>{return !e?.adult})}/>
+        <Carousel sectionName = "What's Popular" dataToMap={Popular?.data?.results.filter(e=>{return !e?.adult})}/>
+        <Carousel sectionName = "Top Rated" dataToMap={Top_Rated?.data?.results.filter(e=>{return !e?.adult})}/>
     </div>
 
     <Footer/>

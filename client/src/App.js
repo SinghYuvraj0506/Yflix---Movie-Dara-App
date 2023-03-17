@@ -11,10 +11,12 @@ import Details from "./Components/Details Page/Details";
 import Login from "./Components/Login/Login";
 import Signup from "./Components/Signup/Signup";
 import 'react-toastify/dist/ReactToastify.css';
+import Loader from "./Components/Loader/Loader";
 
 
 function App() {
-  
+  const loaderConfig = new useSelector(state=>state.loaderConfig)
+
   const dispatch = useDispatch()
   const {setTMDBConfiguration} = bindActionCreators(actionCreators,dispatch)
 
@@ -34,8 +36,11 @@ function App() {
 
   }, [])
   
+  console.log(loaderConfig)
 
   return (
+    <>
+    {loaderConfig?.openModal && <Loader/>}
     <Router>
       <Routes>
         <Route path="/" element={<Main />}/>
@@ -45,6 +50,7 @@ function App() {
           <Route path="/signup" element={<Signup />} />
       </Routes>
     </Router>
+    </>
   );
 }
 

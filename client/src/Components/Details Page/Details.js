@@ -20,7 +20,7 @@ function Details() {
   const { mediaType, id } = useParams();
   const location = useLocation();
   const dispatch = new useDispatch();
-  const { setVideoConfig } = bindActionCreators(actionCreators, dispatch);
+  const { setVideoConfig,setLoaderOpening } = bindActionCreators(actionCreators, dispatch);
   const tmdbConfig = useSelector((state) => state.tmdbConfig); // getting tmdb config from the redux
   const videoPopupConfig = useSelector((state) => state.videoPopupConfig); // getting video config from the redux
 
@@ -49,6 +49,11 @@ function Details() {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [location]);
+
+  // hanldes the loadingh bar
+  useEffect(()=>{
+    setLoaderOpening({openModal : MovieDetails?.loading ?? Credits?.loading ?? Videos?.loading ?? Similar?.loading ?? Recommendations?.loading})
+  },[MovieDetails?.loading,Credits?.loading,Videos?.loading,Similar?.loading,Recommendations?.loading])
 
 
 
