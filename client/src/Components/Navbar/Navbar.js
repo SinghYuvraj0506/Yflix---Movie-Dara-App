@@ -38,7 +38,7 @@ function Navbar(props) {
       </section>
 
       <section className="right_navbar_wrapper">
-        <span className="option_navbar_texts">About</span>
+        {!props?.aboutPage && <span className="option_navbar_texts" onClick={()=>{navigate("/about")}}>About</span>}
         {!cookies.get("auth-token") ? <>{!props?.loginPage && <span className="option_navbar_texts" onClick={()=>{navigate("/login")}}>Login</span>}
         {!props?.signupPage && <span className="option_navbar_texts" onClick={()=>{navigate("/signup")}}>Signup</span>}</> : <span className="option_navbar_texts" onClick={handleLogout}>Logout</span>}
       </section>

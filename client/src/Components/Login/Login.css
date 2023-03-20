@@ -9,10 +9,62 @@
     overflow: hidden;
 }
 
+.login_container_wrapper > section{
+    width: 80%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+}
+
+.extra_gyan_signup{
+    min-width: 40%;
+    max-width: 50%;
+    height: 65vh;
+    border-radius: 15px;
+    background-color: white;
+    color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    overflow: hidden;
+    padding: 10px;
+}
+
+.extra_gyan_signup > h1{
+    font-size: 40px;
+    letter-spacing: 2px;
+    color: #ff5a00;
+    margin-bottom: 10px; 
+}
+
+.extra_gyan_signup > span{
+    font-size: 17px;
+    color: #0000009a;
+    font-weight: 600;
+    margin-bottom: 45px;
+}
+
+.extra_gyan_signup > ul{
+    width: 85%;
+    margin: 10px 0;
+    font-size: 19px;
+    letter-spacing: 1px;
+    line-height: 25px;
+}
+
+.extra_gyan_signup > ul li{
+    margin-bottom: 25px;
+}
+
+
+
+
 .login_form{
     background-color: white;
     border-radius: 10px;
-    width: 30%;
+    min-width: 450px;
     color: black;
     display: flex;
     align-items: center;

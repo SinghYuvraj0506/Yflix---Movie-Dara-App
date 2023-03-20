@@ -4,16 +4,17 @@ import {FaFacebookF,
     FaInstagram,
     FaTwitter,
     FaLinkedin,FaLink,FaGithub} from "react-icons/fa"
+import { useNavigate } from "react-router-dom";
 
 function Footer() {
+  const navigate = useNavigate()
   return (
     <div className="footer_main_wrapper">
       <div className="footer_option">
         <span>Terms of Use</span>
         <span>Privacy Policies</span>
-        <span>About</span>
-        <span>Movies</span>
-        <span>TV Shows / Webseries</span>
+        <span onClick={()=>{navigate('/about')}}>About</span>
+        <span onClick={()=>{navigate('/#search')}}>Search</span>
       </div>
 
       

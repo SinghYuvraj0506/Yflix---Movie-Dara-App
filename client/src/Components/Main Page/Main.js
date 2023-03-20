@@ -26,6 +26,10 @@ function Main() {
   const Popular = useFetch("/movie/popular");
   const Top_Rated = useFetch("/movie/top_rated");
 
+  useEffect(() => {
+    window.scrollTo(0,0)
+  }, [])
+
   // selecting a random movie from the upcomming movies
   useEffect(() => {
     const bg = Upcoming?.data?.results[Math.floor(Math.random() * 20)]; // any random image for the background from upcoming movies
@@ -55,7 +59,7 @@ function Main() {
     <>
     <Navbar/>
 
-    <div className="main_page_hero_section">
+    <div className="main_page_hero_section" id="search">
       <div className="backdrop_image">
         <Img src={tmdbConfig?.backDrop + selectedMovie?.backdrop_path} />
       </div>

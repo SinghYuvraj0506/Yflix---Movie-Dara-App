@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Cookies from "universal-cookie";
 import useFetch from "../../hooks/useFetch";
@@ -13,6 +13,10 @@ function Page() {
   const { query } = useParams();
   
   const { data, loading } = useFetch(`/search/multi?query=${decodeURIComponent(query)}`);
+
+  useEffect(() => {
+    window.scrollTo(0,0)
+  }, [])
 
   if(!cookies.get("auth-token")){
     navigate("/login")
